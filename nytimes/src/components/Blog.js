@@ -5,50 +5,42 @@ import Container from '@material-ui/core/Container';
 import Header from './Header';
 import FeaturedPost from './FeaturedPost';
 // import Footer from './Footer';
-
+import axios from 'axios';
 
 const sections = [
   { title: 'Technology'},
   { title: 'Science'},
 ];
 
-
-
-const featuredPosts = [
-  {
-    title: 'Featured post',
-    date: 'Nov 12',
-    description:
-      'This is a wider card with supporting text below as a natural lead-in to additional content.',
-    image: 'https://source.unsplash.com/random',
-    imageText: 'Image Text',
-  },
-  {
-    title: 'Post title',
-    date: 'Nov 11',
-    description:
-      'This is a wider card with supporting text below as a natural lead-in to additional content.',
-    image: 'https://source.unsplash.com/random',
-    imageText: 'Image Text',
-  }
-];
-
-
  
 export default function Blog() {
-  const [category, setCategory] = useState();
+  const [featuredPosts, setFeaturedPosts] = useState([]);
+  const [title, setTitle] = useState('');
 
   let handleClick = (event) => {
-    setCategory(event.target.innerText)
-}
+    const titleLink = event.target.innerText
 
+    axios({
+      method: 'get',
+      baseURL: 'https://api.nytimes.com/svc/topstories/v2',
+      url: titleLink + '.json',
+      params: {
+        'api-key': 'zvAazghKbJZP9pnADKTDoZ2uNJvQmGAL'
+      }
+    }).then((response) => {
+      setTitle(response.data.section)
+     const posts = response.data.results;
+     setFeaturedPosts(posts);
+     console.log(featuredPosts)
+    })
+}
 
   return (
     <React.Fragment>
       <CssBaseline />
       <Container maxWidth="lg">
         <Header sections={sections} title={handleClick}/>
-        <h1>{category}</h1>
+        <h1>{title}</h1>
         <main>
           <Grid container spacing={4}>
             {featuredPosts.map((post) => (
