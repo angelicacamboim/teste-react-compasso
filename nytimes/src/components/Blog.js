@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
@@ -8,8 +8,8 @@ import FeaturedPost from './FeaturedPost';
 
 
 const sections = [
-  { title: 'Technology', url: '#' },
-  { title: 'Science', url: '#' },
+  { title: 'Technology'},
+  { title: 'Science'},
 ];
 
 
@@ -30,34 +30,25 @@ const featuredPosts = [
       'This is a wider card with supporting text below as a natural lead-in to additional content.',
     image: 'https://source.unsplash.com/random',
     imageText: 'Image Text',
-  },
-  {
-    title: 'Post title',
-    date: 'Nov 11',
-    description:
-      'This is a wider card with supporting text below as a natural lead-in to additional content.',
-    image: 'https://source.unsplash.com/random',
-    imageText: 'Image Text',
-  },
-  {
-    title: 'Post title',
-    date: 'Nov 11',
-    description:
-      'This is a wider card with supporting text below as a natural lead-in to additional content.',
-    image: 'https://source.unsplash.com/random',
-    imageText: 'Image Text',
-  },
+  }
 ];
 
 
  
 export default function Blog() {
+  const [category, setCategory] = useState();
+
+  let handleClick = (event) => {
+    setCategory(event.target.innerText)
+}
+
+
   return (
     <React.Fragment>
       <CssBaseline />
       <Container maxWidth="lg">
-        <Header sections={sections} />
-        <h1>Technology</h1>
+        <Header sections={sections} title={handleClick}/>
+        <h1>{category}</h1>
         <main>
           <Grid container spacing={4}>
             {featuredPosts.map((post) => (

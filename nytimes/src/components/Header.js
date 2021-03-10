@@ -25,7 +25,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Header(props) {
   const classes = useStyles();
-  const { sections } = props;
+  const { sections, title } = props;
+
 
   return (
     <React.Fragment>
@@ -47,8 +48,8 @@ export default function Header(props) {
             noWrap
             key={section.title}
             variant="body2"
-            href={section.url}
             className={classes.toolbarLink}
+            onClick={title}
           >
             {section.title}
           </Link>
@@ -59,6 +60,5 @@ export default function Header(props) {
 }
 
 Header.propTypes = {
-  sections: PropTypes.array,
-  title: PropTypes.string,
+  sections: PropTypes.array
 };
