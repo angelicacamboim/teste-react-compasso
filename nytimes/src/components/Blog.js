@@ -5,7 +5,7 @@ import Container from '@material-ui/core/Container';
 import Header from './Header';
 import FeaturedPost from './FeaturedPost';
 // import Footer from './Footer';
-import axios from 'axios';
+import api from '../services/api'
 
 const sections = [
   { title: 'Technology'},
@@ -20,17 +20,10 @@ export default function Blog() {
   let handleClick = (event) => {
     const titleLink = event.target.innerText
 
-    axios({
-      method: 'get',
-      baseURL: 'https://api.nytimes.com/svc/topstories/v2',
-      url: titleLink + '.json',
-      params: {
-        'api-key': 'zvAazghKbJZP9pnADKTDoZ2uNJvQmGAL'
-      }
-    }).then((response) => {
+    api.get(titleLink + '.json')
+      .then((response) => {
       setTitle(response.data.section)
-     const posts = response.data.results;
-     setFeaturedPosts(posts);
+     setFeaturedPosts(response.data.results);
      console.log(featuredPosts)
     })
 }
@@ -43,8 +36,8 @@ export default function Blog() {
         <h1>{title}</h1>
         <main>
           <Grid container spacing={4}>
-            {featuredPosts.map((post) => (
-              <FeaturedPost key={post.title} post={post} />
+            {featuredPosts.map((post, index) => (
+              <FeaturedPost key={index} post={post} />
             ))}
           </Grid>
          
