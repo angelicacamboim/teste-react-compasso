@@ -2,9 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
+import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link';
-import logo from '../img/logo_nytimes.png';
+import Container from '@material-ui/core/Container';
+import image from '../assets/img/logo_nytimes.png'
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -14,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     flex: 1,
   },
   toolbarSecondary: {
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     overflowX: 'auto',
   },
   toolbarLink: {
@@ -25,39 +26,29 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Header(props) {
   const classes = useStyles();
-  const { sections, title } = props;
 
   return (
-    <React.Fragment>
+    <header>
+      <Container maxWidth="lg">
       <Toolbar className={classes.toolbar}>
+        <Button href="/" size="small">Home </Button>
         <Typography
+          component="h2"
+          variant="h5"
+          color="inherit"
           align="center"
-          noWrap
           className={classes.toolbarTitle}
         >
-        <img src={logo} alt="Logo" width="500" height="100" />
-          
+        <img className="cabecalho__logo" src={image} width='400px' alt="Logo"/>
         </Typography>
-    
+     
       </Toolbar>
-      <Toolbar component="nav" variant="dense" className={classes.toolbarSecondary}>
-        {sections.map((section) => (
-          <Link
-            color="inherit"
-            noWrap
-            key={section.title}
-            variant="body2"
-            className={classes.toolbarLink}
-            onClick={title}
-          >
-            {section.title}
-          </Link>
-        ))}
-      </Toolbar>
-    </React.Fragment>
+           </Container>
+    </header>
   );
 }
 
 Header.propTypes = {
-  sections: PropTypes.array
+  sections: PropTypes.array,
+  title: PropTypes.string,
 };
