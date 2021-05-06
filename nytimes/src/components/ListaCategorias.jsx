@@ -27,7 +27,7 @@ const classes = useStyles();
 
   return (
       <React.Fragment>
-    <Toolbar component="nav" variant="dense" className={classes.toolbarSecondary}>
+    <Toolbar component="nav" variant="regular" className={classes.toolbarSecondary}>
             <Link to="/categoria/technology"
               color="inherit"
               variant="body2"

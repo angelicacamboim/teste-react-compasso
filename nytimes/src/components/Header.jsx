@@ -1,54 +1,50 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import image from '../assets/img/logo.jpg'
 import Container from '@material-ui/core/Container';
-import image from '../assets/img/logo_nytimes.png'
+import Grid from '@material-ui/core/Grid';
+import { Link } from 'react-router-dom'
+import ListaCategorias from './ListaCategorias'
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
     borderBottom: `1px solid ${theme.palette.divider}`,
-  },
-  toolbarTitle: {
-    flex: 1,
-  },
-  toolbarSecondary: {
-    justifyContent: 'space-between',
-    overflowX: 'auto',
-  },
-  toolbarLink: {
-    padding: theme.spacing(1),
-    flexShrink: 0,
-  },
+  }
+  
 }));
 
 export default function Header(props) {
   const classes = useStyles();
 
   return (
-    <header>
+    <React.Fragment>
       <Container maxWidth="lg">
       <Toolbar className={classes.toolbar}>
-        <Button href="/" size="small">Home </Button>
-        <Typography
-          component="h2"
-          variant="h5"
-          color="inherit"
-          align="center"
-          className={classes.toolbarTitle}
-        >
-        <img className="cabecalho__logo" src={image} width='400px' alt="Logo"/>
-        </Typography>
-     
+      <Grid container spacing={2}>
+
+      <Grid item xs>
+   
+      <Link to="/">
+        <img
+						className="cabecalho__logo"
+						src={image}
+						width="180px"
+						alt="Logo"
+					/>
+        </Link>
+
+        </Grid>
+          <Grid item lg={14}>
+
+          <ListaCategorias/>
+    
+        </Grid>
+        </Grid>
       </Toolbar>
-           </Container>
-    </header>
+      </Container>
+      </React.Fragment>
+
+     
   );
 }
-
-Header.propTypes = {
-  sections: PropTypes.array,
-  title: PropTypes.string,
-};

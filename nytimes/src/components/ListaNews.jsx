@@ -10,7 +10,9 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Hidden from '@material-ui/core/Hidden';
-
+import TransitionsModal from './Modal'
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
 
 const useStyles = makeStyles({
     card: {
@@ -21,14 +23,24 @@ const useStyles = makeStyles({
     },
     cardMedia: {
       width: 160,
-    },
+    }
+   
   });
 
 
 const ListaNews = ({url}) => {
     const classes = useStyles();
-
     const [ posts, setPosts ] = useState([])
+    
+    const [open, setOpen] = useState(false);
+
+    const handleOpen = () => {
+      setOpen(true);
+    };
+  
+    const handleClose = () => {
+      setOpen(false);
+    };
 
     useEffect(() => {
         get(url, setPosts)
@@ -57,16 +69,18 @@ const ListaNews = ({url}) => {
                       <Typography variant="subtitle1" paragraph>
                         {post.abstract}
                       </Typography>
-                      <Typography variant="subtitle1" color="primary">
+                      <Typography variant="subtitle1" color="primary" onClick={handleOpen}>
                         Continue reading...
                       </Typography>
                     </CardContent>
                   </div>
+                  <TransitionsModal open={open} close={handleClose}/>
                   <Hidden xsDown>
                     <CardMedia className={classes.cardMedia} image={post.multimedia[0].url} title={post.caption} />
                   </Hidden>
                 </Card>
               </CardActionArea>
+              
 
               </Grid>
              
