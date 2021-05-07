@@ -1,32 +1,29 @@
 import React, { useState, useEffect } from 'react'
 import { get } from '../api/api'
 
-import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Hidden from '@material-ui/core/Hidden';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 import TransitionsModal from './Modal'
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
+import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles({
-    card: {
-      display: 'flex',
-    },
-    cardDetails: {
-      flex: 1,
-    },
-    cardMedia: {
-      width: 160,
-    }
-   
-  });
-
+  root: {
+    maxWidth: 345,
+  },
+  media: {
+    height: 140,
+  },
+  toolbarSecondary: {
+    justifyContent: 'space-between',
+    overflowX: 'auto',
+  },
+});
 
 const ListaNews = ({url}) => {
     const classes = useStyles();
@@ -48,44 +45,39 @@ const ListaNews = ({url}) => {
 
 
   return (
+    
     <React.Fragment>
-      <Grid container spacing={3}>
+  <Grid container spacing={4}>
+        { 
+      posts.map((post) => (
+        <Grid container item xs={4} spacing={-10}>
+        <Card className={classes.root}>
+      <CardActionArea>
+        <CardMedia
+          className={classes.media}
+          image={post.multimedia[0].url} 
+          title={post.caption}
+        />
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="h2">
+            {post.title}
+          </Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+            Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
+            across all continents except Antarctica
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+      <CardActions>
+        <Button size="small" color="primary" onClick={handleOpen}>
+          Learn More
+        </Button>
+        <TransitionsModal open={open} close={handleClose} post={post}/>
+      </CardActions>
+    </Card>
 
-  
-        {
-           posts.map((post) => (
-            <Grid container item xs={6} spacing={1}>
-
-                <CardActionArea component="a" key={post.created_date}>
-                <Card className={classes.card}>
-                  <div className={classes.cardDetails}>
-                    <CardContent>
-                      <Typography component="h2" variant="h5">
-                        {post.title}
-                      </Typography>
-                      <Typography variant="subtitle1" color="textSecondary">
-                        {post.published_date}
-                      </Typography>
-                      <Typography variant="subtitle1" paragraph>
-                        {post.abstract}
-                      </Typography>
-                      <Typography variant="subtitle1" color="primary" onClick={handleOpen}>
-                        Continue reading...
-                      </Typography>
-                    </CardContent>
-                  </div>
-                  <TransitionsModal open={open} close={handleClose}/>
-                  <Hidden xsDown>
-                    <CardMedia className={classes.cardMedia} image={post.multimedia[0].url} title={post.caption} />
-                  </Hidden>
-                </Card>
-              </CardActionArea>
-              
-
-              </Grid>
-             
-            )) }
-     
+   </Grid>
+     ))}
      </Grid>
 
     </React.Fragment>
@@ -93,9 +85,5 @@ const ListaNews = ({url}) => {
 
   );
 }
-
-ListaNews.propTypes = {
-  post: PropTypes.object,
-};
 
 export default ListaNews

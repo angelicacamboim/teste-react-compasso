@@ -20,10 +20,10 @@ const Categoria = () => {
     
     return(
     <Container maxWidth="lg">
-        <Grid container spacing={6}>
+        <Grid container spacing={5} >
 
-        <Grid item xs={12}>
-        <Typography variant="h5"component="h2"  className={classes.textCustom}>
+        <Grid item xs={12}  lg={12}>
+        <Typography variant="h6"component="h2"  className={classes.textCustom}>
 
         {id}
         </Typography>

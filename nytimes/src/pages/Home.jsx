@@ -7,7 +7,7 @@ const Home = () => {
 
   return (
     <main>
-    <Container maxWidth="lg">
+    <Container maxWidth="lg" >
       <ListaNews url={'us'}/>
     </Container>
     </main>
