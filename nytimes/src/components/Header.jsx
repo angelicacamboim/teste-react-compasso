@@ -21,7 +21,7 @@ export default function Header(props) {
     <React.Fragment>
       <Container maxWidth="lg">
       <Toolbar className={classes.toolbar}>
-      <Grid container spacing={2}>
+      <Grid container spacing={6}>
 
       <Grid item xs>
    
@@ -35,7 +35,7 @@ export default function Header(props) {
         </Link>
 
         </Grid>
-          <Grid item lg={14}>
+          <Grid item xs={4}>
 
           <ListaCategorias/>
     

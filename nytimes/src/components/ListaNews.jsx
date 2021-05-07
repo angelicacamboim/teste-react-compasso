@@ -9,8 +9,8 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import TransitionsModal from './Modal'
 import Grid from '@material-ui/core/Grid';
+import TransitionsModal from './Modal'
 
 const useStyles = makeStyles({
   root: {
@@ -28,10 +28,11 @@ const useStyles = makeStyles({
 const ListaNews = ({url}) => {
     const classes = useStyles();
     const [ posts, setPosts ] = useState([])
-    
     const [open, setOpen] = useState(false);
+    const [ postModal, setPostModal ] = useState([])
 
-    const handleOpen = () => {
+
+    const handleClickOpen = () => {
       setOpen(true);
     };
   
@@ -47,39 +48,44 @@ const ListaNews = ({url}) => {
   return (
     
     <React.Fragment>
-  <Grid container spacing={4}>
+  <Grid container spacing={1}>
         { 
       posts.map((post) => (
-        <Grid container item xs={4} spacing={-10}>
+        <Grid container item xs={4} spacing={1} key={post.created_date}>
+         
         <Card className={classes.root}>
-      <CardActionArea>
-        <CardMedia
+      <CardActionArea onClick={()=>{
+          handleClickOpen(); setPostModal(post)
+        }}>
+        <CardMedia 
           className={classes.media}
           image={post.multimedia[0].url} 
           title={post.caption}
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
+          <Typography gutterBottom variant="h5" component="h3">
             {post.title}
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-            across all continents except Antarctica
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary" onClick={handleOpen}>
+
+        <Button size="small" color="primary" onClick={()=>{
+          handleClickOpen(); setPostModal(post)
+        }}>
           Learn More
         </Button>
-        <TransitionsModal open={open} close={handleClose} post={post}/>
-      </CardActions>
+        
+        </CardActions>
     </Card>
-
    </Grid>
+   
      ))}
      </Grid>
 
+     
+    <TransitionsModal open={open} close={handleClose} post={postModal}/>      
+   
     </React.Fragment>
 
 
