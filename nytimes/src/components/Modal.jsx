@@ -28,7 +28,7 @@ const TransitionsModal = ({open, close, post}) => {
         {post.abstract}
       </DialogContentText>
       <DialogContentText id="alert-dialog-slide-description">
-        {post.short_url}
+        <a href={post.url} target="blank" >{post.short_url}</a>
       </DialogContentText>
     </DialogContent>
 

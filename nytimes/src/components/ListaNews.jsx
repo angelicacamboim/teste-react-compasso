@@ -3,7 +3,7 @@ import { get } from '../api/api'
 
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
+import Container from '@material-ui/core/Container';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -12,7 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import TransitionsModal from './Modal'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,
   },
@@ -23,14 +23,28 @@ const useStyles = makeStyles({
     justifyContent: 'space-between',
     overflowX: 'auto',
   },
-});
+  cardGrid: {
+    paddingTop: theme.spacing(8),
+    paddingBottom: theme.spacing(8),
+  },
+  card: {
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  cardMedia: {
+    paddingTop: '56.25%', // 16:9
+  },
+  cardContent: {
+    flexGrow: 1,
+  },
+}))
 
 const ListaNews = ({url}) => {
     const classes = useStyles();
     const [ posts, setPosts ] = useState([])
-    const [open, setOpen] = useState(false);
+    const [ open, setOpen ] = useState(false);
     const [ postModal, setPostModal ] = useState([])
-
 
     const handleClickOpen = () => {
       setOpen(true);
@@ -46,50 +60,43 @@ const ListaNews = ({url}) => {
 
 
   return (
-    
-    <React.Fragment>
-  <Grid container spacing={1}>
-        { 
-      posts.map((post) => (
-        <Grid container item xs={4} spacing={1} key={post.created_date}>
-         
-        <Card className={classes.root}>
-      <CardActionArea onClick={()=>{
-          handleClickOpen(); setPostModal(post)
-        }}>
-        <CardMedia 
-          className={classes.media}
-          image={post.multimedia[0].url} 
-          title={post.caption}
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h3">
-            {post.title}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      <CardActions>
+    <Container className={classes.cardGrid} maxWidth="md">
+          <Grid container spacing={4}>
+          {
+              posts.map((post) => (
 
-        <Button size="small" color="primary" onClick={()=>{
-          handleClickOpen(); setPostModal(post)
-        }}>
-          Learn More
-        </Button>
-        
-        </CardActions>
-    </Card>
-   </Grid>
-   
-     ))}
-     </Grid>
+              <Grid item key={post.created_date} xs={12} sm={6} md={4}>
+                <Card className={classes.card} onClick={()=>{
+                  handleClickOpen(); setPostModal(post)
+                }}>
+                  <CardMedia
+                    className={classes.media}
+                    image={post.multimedia[0].url} 
+                    title={post.caption}
+                  />
+                  <CardContent className={classes.cardContent}>
+                    <Typography gutterBottom variant="h5" component="h2">
+                      {post.title}
+                    </Typography>
+                    <Typography>
+                      {post.byline}
+                    </Typography>
+                  </CardContent>
+                  <CardActions>
+                    <Button size="small" color="primary" onClick={()=>{
+              handleClickOpen(); setPostModal(post)
+           }}>
+                      View
+                  </Button>
+                  </CardActions>
+                </Card>
+              </Grid>
+            ))}
+          <TransitionsModal open={open} close={handleClose} post={postModal}/>    
 
-     
-    <TransitionsModal open={open} close={handleClose} post={postModal}/>      
-   
-    </React.Fragment>
-
-
-  );
+          </Grid>
+        </Container>
+  )
 }
 
 export default ListaNews

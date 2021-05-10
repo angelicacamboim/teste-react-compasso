@@ -1,50 +1,72 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
-import image from '../assets/img/logo.jpg'
-import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
+import AppBar from '@material-ui/core/AppBar';
 import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles';
+import logo from '../assets/img/logo.jpg';
 import { Link } from 'react-router-dom'
-import ListaCategorias from './ListaCategorias'
+import Container from '@material-ui/core/Container';
+import ButtonGroup from '@material-ui/core/Container';
+
+
 
 const useStyles = makeStyles((theme) => ({
-  toolbar: {
-    borderBottom: `1px solid ${theme.palette.divider}`,
+  heroContent: {
+    backgroundColor: theme.palette.background.paper,
+    padding: theme.spacing(8, 0, 6),
+  },
+  heroButtons: {
+    marginTop: theme.spacing(4),
   }
-  
 }));
 
-export default function Header(props) {
+
+export default function Header() {
   const classes = useStyles();
+  const [selectedBtn, setSelectedBtn] = React.useState(-1);
+
 
   return (
     <React.Fragment>
-      <Container maxWidth="lg">
-      <Toolbar className={classes.toolbar}>
-      <Grid container spacing={6}>
+          <AppBar position="relative" color="default">
+          <Toolbar>
+          <Typography variant="h6" color="textPrimary" noWrap>
+          The New York Times - Top Stories
+          </Typography>
+        </Toolbar>
+      </AppBar>
 
-      <Grid item xs>
-   
-      <Link to="/">
-        <img
-						className="cabecalho__logo"
-						src={image}
-						width="180px"
-						alt="Logo"
-					/>
-        </Link>
-
-        </Grid>
-          <Grid item xs={4}>
-
-          <ListaCategorias/>
-    
-        </Grid>
-        </Grid>
-      </Toolbar>
+      {/* Hero unit */}
+    <div className={classes.heroContent}>
+      <Container maxWidth="sm">
+        <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
+        <img src={logo} width="300" alt="logo"/>
+        </Typography>
+        <Typography variant="h5" align="center" color="textSecondary" paragraph>
+        The Top Stories API returns an array of articles currently on the specified section (science, technology, ...).
+        </Typography>
+        <div className={classes.heroButtons}>
+        <ButtonGroup>
+          <Grid container spacing={2} justify="center">
+            <Grid item>
+              <Button component={Link} value="Technology" variant="contained" to="/categoria/technology" color={selectedBtn === 1 ? "secondary" : "default"} onClick={()=>setSelectedBtn(1)}>
+              Technology
+              </Button>
+            </Grid>
+            <Grid item>
+              <Button component={Link} value="Science" variant="contained" to="/categoria/science" color={selectedBtn === 2 ? "secondary" : "default"} onClick={()=>setSelectedBtn(2)}>
+              Science
+              </Button>
+            </Grid>
+          </Grid>
+          </ButtonGroup>
+        </div>
       </Container>
+    </div>
       </React.Fragment>
-
-     
   );
 }
+
+
