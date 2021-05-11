@@ -41,7 +41,7 @@ export default function Header() {
     <div className={classes.heroContent}>
       <Container maxWidth="sm">
         <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-        <img src={logo} width="300" alt="logo"/>
+        <Link to="/" onClick={()=>setSelectedBtn(0)}><img src={logo} width="300" alt="logo"/></Link>
         </Typography>
         <Typography variant="h5" align="center" color="textSecondary" paragraph>
         The Top Stories API returns an array of articles currently on the specified section (science, technology, ...).
