@@ -17,10 +17,6 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,
-    display: 'flex',
-    '& > * + *': {
-      marginLeft: theme.spacing(2),
-    },
   },
   media: {
     height: 140,
@@ -98,7 +94,9 @@ const ListaNews = ({url}) => {
                   </CardActions>
                 </Card>
               </Grid>
-            )) : <CircularProgress color="secondary"/> }
+            )) : <Grid item container direction="row" justify="center" alignItems="center"> 
+                  <CircularProgress color="secondary"/> 
+                </Grid>}
           <TransitionsModal open={open} close={handleClose} post={postModal}/>    
 
           </Grid>
