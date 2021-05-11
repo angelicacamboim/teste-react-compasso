@@ -17,6 +17,10 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,
+    display: 'flex',
+    '& > * + *': {
+      marginLeft: theme.spacing(2),
+    },
   },
   media: {
     height: 140,
@@ -39,9 +43,6 @@ const useStyles = makeStyles((theme) => ({
   },
   cardContent: {
     flexGrow: 1,
-  },
-  loading: {
-    justifyContent: 'center'
   }
 }))
 
@@ -50,7 +51,7 @@ const ListaNews = ({url}) => {
     const [ posts, setPosts ] = useState([])
     const [ open, setOpen ] = useState(false);
     const [ postModal, setPostModal ] = useState([])
-    const [ loading, setLoading ] = useState(false);
+    const [ loading, setLoading ] = useState(true);
 
     const handleClickOpen = () => {
       setOpen(true);
@@ -68,7 +69,7 @@ const ListaNews = ({url}) => {
   return (
     <Container className={classes.cardGrid} maxWidth="md">
           <Grid container spacing={4}>
-          { loading? 
+          { !loading? 
             posts.map((post) => (
 
               <Grid item key={post.updated_date} xs={12} sm={6} md={4}>
@@ -97,7 +98,7 @@ const ListaNews = ({url}) => {
                   </CardActions>
                 </Card>
               </Grid>
-            )) : <CircularProgress color="secondary" className={classes.loading}/> }
+            )) : <CircularProgress color="secondary"/> }
           <TransitionsModal open={open} close={handleClose} post={postModal}/>    
 
           </Grid>
