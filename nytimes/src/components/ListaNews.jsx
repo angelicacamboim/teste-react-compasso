@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { get } from '../api/api'
 
+
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import Container from '@material-ui/core/Container';
@@ -70,7 +71,7 @@ const ListaNews = ({url}) => {
           { loading? 
             posts.map((post) => (
 
-              <Grid item key={post.created_date} xs={12} sm={6} md={4}>
+              <Grid item key={post.updated_date} xs={12} sm={6} md={4}>
                 <Card className={classes.card} onClick={()=>{
                   handleClickOpen(); setPostModal(post)
                 }}>
