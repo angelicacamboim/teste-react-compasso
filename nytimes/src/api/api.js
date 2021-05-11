@@ -8,10 +8,10 @@ export const api = axios.create({
     }
 })
 
-export const get = async(url, setDado) => {
+export const get = async (url, setDado, setLoading) => {
   const resposta = await api.get(url + '.json')
-  setDado(resposta.data.results)
-  console.log(resposta.data.results)
+  await setLoading(true)
+  await setDado(resposta.data.results)
 }
 
 //https://api.nytimes.com/svc/topstories/v2/science.json?api-key=zvAazghKbJZP9pnADKTDoZ2uNJvQmGAL

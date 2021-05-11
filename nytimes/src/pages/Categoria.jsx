@@ -7,9 +7,7 @@ const Categoria = () => {
     const {id} = useParams()
     
     return(
-      
         <ListaNews url={id}/>   
-       
     )}
 
 export default Categoria

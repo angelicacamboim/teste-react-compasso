@@ -25,8 +25,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Header() {
   const classes = useStyles();
-  const [selectedBtn, setSelectedBtn] = React.useState(-1);
-
+  const [selectedBtn, setSelectedBtn] = React.useState(0);
 
   return (
     <React.Fragment>
@@ -51,12 +50,12 @@ export default function Header() {
         <ButtonGroup>
           <Grid container spacing={2} justify="center">
             <Grid item>
-              <Button component={Link} value="Technology" variant="contained" to="/categoria/technology" color={selectedBtn === 1 ? "secondary" : "default"} onClick={()=>setSelectedBtn(1)}>
+              <Button component={Link} value="Technology" variant="contained" to="/technology" color={selectedBtn === 1 ? "secondary" : "default"} onClick={()=>setSelectedBtn(1)}>
               Technology
               </Button>
             </Grid>
             <Grid item>
-              <Button component={Link} value="Science" variant="contained" to="/categoria/science" color={selectedBtn === 2 ? "secondary" : "default"} onClick={()=>setSelectedBtn(2)}>
+              <Button component={Link} value="Science" variant="contained" to="/science" color={selectedBtn === 2 ? "secondary" : "default"} onClick={()=>setSelectedBtn(2)}>
               Science
               </Button>
             </Grid>

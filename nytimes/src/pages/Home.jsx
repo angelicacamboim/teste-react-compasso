@@ -1,11 +1,10 @@
 import ListaNews from '../components/ListaNews'
 import React from 'react';
 
-
 const Home = () => {
 
   return (
-   <ListaNews url={'home'}/> 
+  <ListaNews url={'home'}/>
   )
 }
 

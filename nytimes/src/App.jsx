@@ -1,4 +1,4 @@
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+import {BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Home from './pages/Home'
 import Header from './components/Header'
 import Categoria from './pages/Categoria'
@@ -11,12 +11,9 @@ function App() {
       <Router>
       <Header />
       <Switch>
-        <Route exact path='/'>
-          <Home />
-        </Route>
-        <Route path='/categoria/:id'>
-          <Categoria />
-        </Route>
+        <Route exact path='/' component={Home}/>
+        <Route path='/:id' component={Categoria}/>
+
 {/* 
         <Route>
           <Pagina404 />

@@ -11,6 +11,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import TransitionsModal from './Modal'
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,6 +39,9 @@ const useStyles = makeStyles((theme) => ({
   cardContent: {
     flexGrow: 1,
   },
+  loading: {
+    justifyContent: 'center'
+  }
 }))
 
 const ListaNews = ({url}) => {
@@ -45,6 +49,7 @@ const ListaNews = ({url}) => {
     const [ posts, setPosts ] = useState([])
     const [ open, setOpen ] = useState(false);
     const [ postModal, setPostModal ] = useState([])
+    const [ loading, setLoading ] = useState(false);
 
     const handleClickOpen = () => {
       setOpen(true);
@@ -55,15 +60,15 @@ const ListaNews = ({url}) => {
     };
 
     useEffect(() => {
-        get(url, setPosts)
+        get(url, setPosts, setLoading)
     }, [url])
 
 
   return (
     <Container className={classes.cardGrid} maxWidth="md">
           <Grid container spacing={4}>
-          {
-              posts.map((post) => (
+          { loading? 
+            posts.map((post) => (
 
               <Grid item key={post.created_date} xs={12} sm={6} md={4}>
                 <Card className={classes.card} onClick={()=>{
@@ -91,7 +96,7 @@ const ListaNews = ({url}) => {
                   </CardActions>
                 </Card>
               </Grid>
-            ))}
+            )) : <CircularProgress color="secondary" className={classes.loading}/> }
           <TransitionsModal open={open} close={handleClose} post={postModal}/>    
 
           </Grid>
