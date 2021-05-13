@@ -10,8 +10,6 @@ import { Link } from 'react-router-dom'
 import Container from '@material-ui/core/Container';
 import ButtonGroup from '@material-ui/core/Container';
 
-
-
 const useStyles = makeStyles((theme) => ({
   heroContent: {
     backgroundColor: theme.palette.background.paper,
@@ -21,7 +19,6 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(4),
   }
 }));
-
 
 export default function Header() {
   const classes = useStyles();
@@ -37,7 +34,6 @@ export default function Header() {
         </Toolbar>
       </AppBar>
 
-      {/* Hero unit */}
     <div className={classes.heroContent}>
       <Container maxWidth="sm">
         <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
@@ -64,7 +60,7 @@ export default function Header() {
         </div>
       </Container>
     </div>
-      </React.Fragment>
+    </React.Fragment>
   );
 }
 

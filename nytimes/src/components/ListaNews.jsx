@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { get } from '../api/api'
-
+import api from '../api/api'
+import { useHistory } from 'react-router-dom'
 
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
   },
   cardMedia: {
-    paddingTop: '56.25%', // 16:9
+    paddingTop: '56.25%', 
   },
   cardContent: {
     flexGrow: 1,
@@ -43,34 +43,41 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const ListaNews = ({url}) => {
-    const classes = useStyles();
+    let history = useHistory()
+    const classes = useStyles()
     const [ posts, setPosts ] = useState([])
-    const [ open, setOpen ] = useState(false);
+    const [ openModal, setOpenModal ] = useState(false);
     const [ postModal, setPostModal ] = useState([])
-    const [ loading, setLoading ] = useState(true);
+    const [ loading, setLoading ] = useState(true)
 
-    const handleClickOpen = () => {
-      setOpen(true);
+    const handleClickOpenModal = () => {
+      setOpenModal(true);
     };
   
-    const handleClose = () => {
-      setOpen(false);
+    const handleCloseModal = () => {
+      setOpenModal(false);
     };
 
     useEffect(() => {
-        get(url, setPosts, setLoading)
-    }, [url])
-
+      api.get(url + '.json')
+        .then(response => {
+          setLoading(false)
+          setPosts(response.data.results)
+    }).catch(error =>  {
+        console.log(error)
+        history.push('/')
+    })
+  }, [url, history])
 
   return (
     <Container className={classes.cardGrid} maxWidth="md">
           <Grid container spacing={4}>
-          { !loading? 
-            posts.map((post) => (
+          { !loading?
+            posts.map((post, index) => (
 
-              <Grid item key={post.updated_date} xs={12} sm={6} md={4}>
+              <Grid item key={index} xs={12} sm={6} md={4}>
                 <Card className={classes.card} onClick={()=>{
-                  handleClickOpen(); setPostModal(post)
+                  handleClickOpenModal(); setPostModal(post)
                 }}>
                   <CardMedia
                     className={classes.media}
@@ -87,17 +94,17 @@ const ListaNews = ({url}) => {
                   </CardContent>
                   <CardActions>
                     <Button size="small" color="primary" onClick={()=>{
-              handleClickOpen(); setPostModal(post)
-           }}>
+                      handleClickOpenModal(); setPostModal(post)
+                  }}>
                       View
                   </Button>
                   </CardActions>
                 </Card>
               </Grid>
-            )) : <Grid item container direction="row" justify="center" alignItems="center"> 
-                  <CircularProgress color="secondary"/> 
-                </Grid>}
-          <TransitionsModal open={open} close={handleClose} post={postModal}/>    
+            )):<Grid item container direction="row" justify="center" alignItems="center"> 
+            <CircularProgress color="secondary"/> 
+          </Grid> }
+          <TransitionsModal open={openModal} close={handleCloseModal} post={postModal}/>    
 
           </Grid>
         </Container>

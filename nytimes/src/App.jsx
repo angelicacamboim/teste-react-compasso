@@ -1,5 +1,4 @@
-import {BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import Home from './pages/Home'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Header from './components/Header'
 import Categoria from './pages/Categoria'
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -11,14 +10,7 @@ function App() {
       <Router>
       <Header />
       <Switch>
-        <Route exact path='/' component={Home}/>
-        <Route path='/:id' component={Categoria}/>
-
-{/* 
-        <Route>
-          <Pagina404 />
-        </Route> */}
-
+        <Route exact path='/:id?' component={Categoria}/>
       </Switch>
     </Router>
     </div>
